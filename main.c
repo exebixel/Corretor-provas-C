@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "corretor.c"
 #include "global.c"
+#include "file.c"
 
 #define limparBuffer while(getchar()!='\n');
 
@@ -18,7 +18,7 @@ int main(){
     printf("ENTRADA DAS RESPOSTAS DO ALUNOS \n");
     entradaAluno();
     system("clear");
-    corrigirProva();
+    file();
     
     return 0;
 }
