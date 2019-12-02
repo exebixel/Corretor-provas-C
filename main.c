@@ -91,7 +91,7 @@ void entradaAluno()
      * Nome do aluno e respostas da prova
     */
 
-    int  simnao;
+    char simnao;
         
     // estrutura de repetição para cadastro de aluno, e suas respostas, 
     //repete enquanto o usuario digita 1 na opção de continuar cadastro
@@ -133,22 +133,22 @@ void entradaAluno()
         do
         {
             printf("Voce deseja cadastrar outro aluno ? \n");
-            printf("Digite 0 para não e 1 para sim \n");
-            scanf("%d",&simnao);
+            printf("Digite 'n' para não e 's' para sim \n");
+            scanf("%c",&simnao);
 
             limparBuffer;
 
             // Exibe a mensagem caso o usuario digite uma opção diferente de 0 ou 1
-            if (simnao !=0 && simnao !=1)
+            if (simnao !='s' && simnao !='n')
             {
-                printf("Digite somente 0 ou 1\n");
+                printf("Digite somente 's' ou 'n'\n");
             }
             printf("\n");
             // Repete enquanto o usuario não digitar 0 ou 1
-        } while (simnao != 0 && simnao !=1);
+        } while (simnao != 's' && simnao !='n');
         
             // Repete caso o usuario escolha cadastrar outro aluno
-    } while (simnao == 1);
+    } while (simnao == 's');
     
     
 }
