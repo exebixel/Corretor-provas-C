@@ -21,9 +21,9 @@ int main(){
     // checa log e retorna numero do arquivo "prova-%i"
     int numArq = file();
     // corrige e cria arquivo com historico da prova
-    corrigirProva(numArq + 1);
+    corrigirProva(numArq);
     // imprime arquivo criado na tala do terminal
-    if (printarq(numArq +1) == 0)
+    if (printarq(numArq) == 0)
     {
         printf("Erro ao ler arquivo!!! \n");
     }
