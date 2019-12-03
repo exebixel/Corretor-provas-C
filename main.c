@@ -1,24 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "global.c"
+#include "file.c"
 
 #define limparBuffer while(getchar()!='\n');
-
-// Variaveis Globais
-
-int qtdQuestoes;
-int qntAlunos=0;
-char gabarito[100];
-char nomeAlunos[100][50];
-// o 1° 100 é referente as respostas do gabarito
-// o 2° 100 é referente aos alunos 
-char respostasAlunos[100][100];
 
 // Prototipação de função
 
 void entradaGabarito();
 void entradaAluno();
-void corrigirProva();
 
 int main(){
     printf("ENTRADA DO GABARITO DE PROVA \n");
@@ -27,7 +18,15 @@ int main(){
     printf("ENTRADA DAS RESPOSTAS DO ALUNOS \n");
     entradaAluno();
     system("clear");
-    corrigirProva();
+    // checa log e retorna numero do arquivo "prova-%i"
+    int numArq = file();
+    // corrige e cria arquivo com historico da prova
+    corrigirProva(numArq + 1);
+    // imprime arquivo criado na tala do terminal
+    if (printarq(numArq +1) == 0)
+    {
+        printf("Erro ao ler arquivo!!! \n");
+    }
     
     return 0;
 }
@@ -90,7 +89,7 @@ void entradaAluno()
      * Função referente a entrada de dados do aluno
      * Nome do aluno e respostas da prova
     */
-
+    qntAlunos = 0;
     char simnao;
         
     // estrutura de repetição para cadastro de aluno, e suas respostas, 
@@ -149,68 +148,5 @@ void entradaAluno()
         
             // Repete caso o usuario escolha cadastrar outro aluno
     } while (simnao == 's');
-    
-    
-}
-
-
-void corrigirProva()
-{
-    // Variaveis 
-    float acertoTotal = 0;
-    float mediaTotal = 0;
-    float acertosPorQuestao[qtdQuestoes];
-
-    // Estrutura de repetição que percorre os alunos
-    for (int PercAlunos = 0; PercAlunos < qntAlunos; PercAlunos++)
-    {
-        //Variaveis de acerto e erro
-        int acertos = 0;
-        int erros = 0;
-        printf("\n");
-        printf("Nome %d° aluno(a): %s \n", PercAlunos+1, nomeAlunos[PercAlunos]);
-        // Estrutura que percorre as alternativas
-        for (int PercAlter = 0; PercAlter < qtdQuestoes; PercAlter++)
-        {
-            // Compara a alternativas dos alunos com gabarito
-            if (respostasAlunos[PercAlter][PercAlunos] == gabarito[PercAlter])
-            {
-                printf("Questão: %d° Resposta Correta: %c \n", PercAlter +1, gabarito[PercAlter]);
-                // conta quantidade de acertos do aluno
-                acertos++;
-                // conta quantidade de erros do aluno
-                acertoTotal++;
-                // conta a quantidade de acertos da questão
-                acertosPorQuestao[PercAlter]++;
-            }
-            else
-            {
-                printf("Questão: %d° Resposta Errada \n", PercAlter +1);
-                // conta a quantidade de erros do aluno
-                erros++;
-            }
-        }
-        // Exibe o total de acertos e de erros do aluno
-        printf("Total de Acertos do aluno(a): %d \n", acertos);
-        printf("Total de Erros do aluno(a): %d \n", erros);
-        
-    }
-    // calcula a media de acertos dos alunos
-    mediaTotal = acertoTotal/qntAlunos;
-    printf("\n \n");
-    printf("-------------------------------------------\n");
-    printf("A MÉDIA de acertos da turma é: %.2f/%d \n", mediaTotal, qtdQuestoes);
-
-    
-    printf("\n");
-    printf("-------------------------------------------\n");    
-    printf("Probabilidade de Acerto de cada questão: \n");
-    // laço para calcular a probabilidade da acerto de cada questão
-    for (int i = 0; i < qtdQuestoes; i++)
-    {
-        // calcula a probabilidade da acerto da questão
-        acertosPorQuestao[i] = (acertosPorQuestao[i]/qntAlunos)*100;
-        printf("%d° Questão: %.0f\% \n", i+1, acertosPorQuestao[i]);
-    }
     
 }
