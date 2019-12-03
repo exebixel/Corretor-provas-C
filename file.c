@@ -8,6 +8,7 @@ int checklog();
 void addlog();
 void file();
 void createlog();
+int checkarchive();
 
 int checklog()
 {
@@ -70,14 +71,38 @@ void createlog()
 
 }
 
+int checkarchive(int numArquivo)
+{
+    FILE *arquivo;
+    char nomeArquivo[40];
+    sprintf(nomeArquivo, "History/prova-%i", numArquivo);
+    if ((arquivo = fopen(nomeArquivo, "r")) != NULL)
+    {
+        fclose(arquivo);
+        return 1;
+    }
+    return 0;    
+}
+
 void file()
 {
     mkdir("History", 0755);
     
     int numeroArquivo = checklog();
 
-    addlog(numeroArquivo + 1);
+    if (checkarchive(numeroArquivo +1))
+    {
+        createlog();
+        file();
+    }
+    else
+    {
+        addlog(numeroArquivo + 1);
 
-    corrigirProva(numeroArquivo + 1);
+        corrigirProva(numeroArquivo + 1);
+        
+    }
+    
+
     
 }
