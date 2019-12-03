@@ -157,8 +157,8 @@ void entradaAluno()
 void corrigirProva()
 {
     // Variaveis 
-    int acertoTotal = 0;
-    int mediaTotal = 0;
+    float acertoTotal = 0;
+    float mediaTotal = 0;
     float acertosPorQuestao[qtdQuestoes];
 
     // Estrutura de repetição que percorre os alunos
@@ -199,7 +199,7 @@ void corrigirProva()
     mediaTotal = acertoTotal/qntAlunos;
     printf("\n \n");
     printf("-------------------------------------------\n");
-    printf("A MÉDIA de acertos da turma é: %d/%d \n", mediaTotal, qtdQuestoes);
+    printf("A MÉDIA de acertos da turma é: %.2f/%d \n", mediaTotal, qtdQuestoes);
 
     
     printf("\n");
