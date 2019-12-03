@@ -6,7 +6,7 @@ void corrigirProva(int numeroArquivo)
 {
     FILE *arquivo;
     char nomeArquivo[40];
-    sprintf(nomeArquivo, "History/provas-%i", numeroArquivo);
+    sprintf(nomeArquivo, "History/prova-%i", numeroArquivo);
     arquivo = fopen(nomeArquivo, "w");
 
 

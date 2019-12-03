@@ -4,24 +4,26 @@
 #include <sys/stat.h>
 #include "corretor.c"
 
+int checklog();
+void addlog();
+void file();
+void createlog();
 
 int checklog()
 {
     FILE *arquivolog;
     if ((arquivolog = fopen("History/.log", "r")) == NULL)
     {
-        // arquivo não existe
-        arquivolog = fopen("History/.log", "w");
-        fclose(arquivolog);
-        return 0;
+        createlog();
+        arquivolog = fopen("History/.log", "r");
     } 
 
-    int num;
+    int num = 0;
     int maior = 0;
 
     while (!feof(arquivolog))
     {
-        fscanf(arquivolog, "%d ;", &num);
+        fscanf(arquivolog, "%i ;", &num);
         if (num > maior)
         {
             maior = num;
@@ -37,11 +39,35 @@ int checklog()
 void addlog(int numeroLog)
 {
     FILE *arquivolog;
-    arquivolog = fopen("History/.log", "a");
+    arquivolog = fopen("History/.log", "w");
 
     fprintf(arquivolog, "%i ;\n", numeroLog);
 
     fclose(arquivolog);
+}
+
+void createlog()
+{
+    DIR *pasta;
+    pasta = opendir("History");
+    struct dirent *ls;
+    int num = 0;
+    int maior = 0;
+
+    while (ls = readdir(pasta))
+    {
+        sscanf(ls->d_name, "prova-%i", &num);
+        
+        if (num > maior)    
+        {
+            maior = num;
+        }
+        
+    }
+    closedir(pasta);
+    
+    addlog(maior);
+
 }
 
 void file()
