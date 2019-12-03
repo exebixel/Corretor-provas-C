@@ -84,6 +84,29 @@ int checkarchive(int numArquivo)
     return 0;    
 }
 
+int printarq(int numarq)
+{
+    FILE *arquivo;
+    char nomeArquivo[40];
+    sprintf(nomeArquivo, "History/prova-%i", numarq);
+    if (arquivo = fopen(nomeArquivo, "r")){
+        char c;
+        while (!feof(arquivo))
+        {
+            fscanf(arquivo, "%c", &c);
+            printf("%c", c);
+        }
+        
+        fclose(arquivo);
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+    
+}
+
 void file()
 {
     mkdir("History", 0755);
@@ -98,11 +121,10 @@ void file()
     else
     {
         addlog(numeroArquivo + 1);
-
         corrigirProva(numeroArquivo + 1);
-        
-    }
-    
-
-    
+        if (printarq(numeroArquivo +1) == 0)
+        {
+            printf("Erro ao ler arquivo!!! \n");
+        }
+    }    
 }
