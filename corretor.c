@@ -11,8 +11,8 @@ void corrigirProva(int numeroArquivo)
 
 
     // Variaveis 
-    int acertoTotal = 0;
-    int mediaTotal = 0;
+    float acertoTotal = 0;
+    float mediaTotal = 0;
     float acertosPorQuestao[qtdQuestoes];
 
     // inicialização do vetor
@@ -60,7 +60,7 @@ void corrigirProva(int numeroArquivo)
     mediaTotal = acertoTotal/qntAlunos;
     fprintf(arquivo, "\n \n");
     fprintf(arquivo, "-------------------------------------------\n");
-    fprintf(arquivo, "A MÉDIA de acertos da turma é: %d/%d \n", mediaTotal, qtdQuestoes);
+    fprintf(arquivo, "A MÉDIA de acertos da turma é: %.2f/%d \n", mediaTotal, qtdQuestoes);
 
     
     fprintf(arquivo, "\n");
