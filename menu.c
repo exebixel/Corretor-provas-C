@@ -5,16 +5,18 @@
 #include <string.h>
 
 #define clearBuffer while(getchar() != '\n');
+// define o valor da tecla enter
 #define ENTER 10
 
-void menu();
+WINDOW *menu();
 // cria uma janela centralizada na tela do terminal
 WINDOW *createCentralizeWindow(int lines, int columns);
 // imprime um texto centralizado na tela
 void printwcentralize(WINDOW *window, int line, int totalColumns, char *text);
+// cria uma janela com uma mensagem que é passada pelo parametro
 int messageBox(char *menssage);
 
-void menu()
+WINDOW *menu()
 {
     // inicia o ncurses
     initscr();
@@ -26,6 +28,7 @@ void menu()
     // cria um par de cores cor do foreground branco e
     // background azul
     init_pair(1, COLOR_WHITE, COLOR_BLUE);
+    init_pair(2, COLOR_GREEN, COLOR_BLACK);
 
     // define a cor do background
     bkgd(COLOR_PAIR(1));
@@ -42,34 +45,75 @@ void menu()
 
     printwcentralize(window, 1, 50, "MENU PRINCIPAL");
 
-    char *text[6];
-    text[0] = "1 - Cadastro de aluno";
-    text[1] = "2 - Editar turmas";
-    text[2] = "3 - Correção de prova";
-    text[3] = "4 - Historico de provas";
-    text[4] = "5 - Log out";
-    text[5] = "6 - Fechar programa";
-    for (int i = 0; i < 6; i++)
-    {
-        mvwprintw(window, (i+3), 3, text[i]);
-    }
-
-    // atualiza janela
-    wrefresh(window);
     
-    // aguarda usuario digita alguma tecla
-    getch();
+    char *text[6];
+    text[0] = "1 - Cadastro de aluno    ";
+    text[1] = "2 - Editar turmas        ";
+    text[2] = "3 - Correção de prova    ";
+    text[3] = "4 - Historico de provas  ";
+    text[4] = "5 - Log out              ";
+    text[5] = "6 - Fechar programa      ";
+    
+    // pega a entrada do teclado do usuario
+    int key;
+    // guarda a opção selecionada
+    int selectOption = 0;
+    while (1)
+    {
+        // loop para atualizar as opções do usuario
+        for (int i = 0; i < 6; i++)
+        {
+            // checa qual opção esta setada
+            if (i == selectOption)
+            {
+                wattron(window, A_REVERSE);
+            }
+            // imprime as opções de novo 
+            mvwprintw(window, i+3, 3, text[i]);
+            wattroff(window, A_REVERSE);
+            wrefresh(window);
+        }
+        // pega a tecla digitada pelo usuario
+        key = getch();
+        switch (key)
+        {
+            // caso for seta pra baixo
+            case KEY_DOWN:
+                // checa se pode descer mais uma opção 
+                // se não volta pra cima
+                if (selectOption == 5)
+                {
+                    selectOption = 0;
+                }
+                else
+                {
+                    selectOption++;
+                }            
+                break;
+            case KEY_UP:
+                //  checa se pode subir mais uma opção 
+                // se não volta pra baixo
+                if (selectOption == 0)
+                {
+                    selectOption = 5;
+                }
+                else
+                {
+                    selectOption--;
+                }
+                break;
+            default:
+                break;
+        }
+        // se precionar enter sai do loop do while 
+        if (key == ENTER)
+        {
+            break;
+        }
+    }
+    
+    return window;
 
-   
-    messageBox("Em Desenvolvimento");
-   
-    //getch();
-
-    // deleta a janela
-    delwin(window);
-    // fecha ncurses
-    endwin();
-    exit(0);
 
 }
 
@@ -96,7 +140,7 @@ WINDOW *createCentralizeWindow(int lines, int columns)
 
     // criação da janela
     WINDOW *window;
-    window = newwin(lines, // númeoro de linhas da janela
+    window = newwin(lines, // número de linhas da janela
                     columns, // número de colunas 
                     windowSizeLine, // linha que inicia a janela
                     windowSizeColum); // coluna que inicia a janela
@@ -123,6 +167,7 @@ int messageBox(char *message)
     // cria uma linha al redor da janela
     box(winbox, ACS_VLINE, ACS_HLINE);
     printwcentralize(winbox, 1, 30, message);
+    printwcentralize(winbox, 3, 30, "| OK |");
     wrefresh(winbox);
     //clearBuffer;
     int key;
@@ -139,6 +184,10 @@ int messageBox(char *message)
 int main()
 {
     setlocale(LC_ALL, "");
-    menu();
+    WINDOW *window = menu();
+    // deleta a janela
+    delwin(window);
+    // fecha ncurses
+    endwin();
     return 0;
 }
