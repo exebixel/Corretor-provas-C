@@ -8,44 +8,25 @@
 // define o valor da tecla enter
 #define ENTER 10
 
-WINDOW *menu();
+int menu();
 // cria uma janela centralizada na tela do terminal
 WINDOW *createCentralizeWindow(int lines, int columns);
 // imprime um texto centralizado na tela
-void printwcentralize(WINDOW *window, int line, int totalColumns, char *text);
+void printwcentralize(WINDOW *window, int line, char *text);
 // cria uma janela com uma mensagem que é passada pelo parametro
 int messageBox(char *menssage);
 
-WINDOW *menu()
+int menu()
 {
-    // inicia o ncurses
-    initscr();
-    curs_set(0);
-    //abilita o uso dos #defines do teclado, possibilita, por exemplo a referência da tecla F1 por KEY_F1
-    keypad(stdscr, TRUE); 
-    // inicia suporte a cores
-    start_color();
-    // cria um par de cores cor do foreground branco e
-    // background azul
-    init_pair(1, COLOR_WHITE, COLOR_BLUE);
-    init_pair(2, COLOR_GREEN, COLOR_BLACK);
-
-    // define a cor do background
-    bkgd(COLOR_PAIR(1));
-
-    // atualiza interface
-    refresh();
-
     // cria uma janela com 30 linhas e 60 colunas 
     // e centraliza ela na tela
-    WINDOW *window;
-    window = createCentralizeWindow(15, 50);
+    WINDOW *winMenu;
+    winMenu = createCentralizeWindow(15, 50);
     // cria uma borda na tela
-    box(window, ACS_VLINE, ACS_HLINE);
+    box(winMenu, ACS_VLINE, ACS_HLINE);
 
-    printwcentralize(window, 1, 50, "MENU PRINCIPAL");
+    printwcentralize(winMenu, 1, "MENU PRINCIPAL");
 
-    
     char *text[6];
     text[0] = "1 - Cadastro de aluno    ";
     text[1] = "2 - Editar turmas        ";
@@ -66,12 +47,12 @@ WINDOW *menu()
             // checa qual opção esta setada
             if (i == selectOption)
             {
-                wattron(window, A_REVERSE);
+                wattron(winMenu, A_REVERSE);
             }
             // imprime as opções de novo 
-            mvwprintw(window, i+3, 3, text[i]);
-            wattroff(window, A_REVERSE);
-            wrefresh(window);
+            mvwprintw(winMenu, i+3, 3, text[i]);
+            wattroff(winMenu, A_REVERSE);
+            wrefresh(winMenu);
         }
         // pega a tecla digitada pelo usuario
         key = getch();
@@ -111,9 +92,10 @@ WINDOW *menu()
             break;
         }
     }
-    
-    return window;
 
+    delwin(winMenu);
+    
+    return selectOption;
 
 }
 
@@ -148,45 +130,72 @@ WINDOW *createCentralizeWindow(int lines, int columns)
     return window;
 }
 
-void printwcentralize(WINDOW *window, int line, int totalColumns, char *text)
+void printwcentralize(WINDOW *window, int line, char *text)
 {
+    int maxColumns = getmaxx(window);
     int column;
     // pega o tamanho do texto a ser "imprimido"
     int sizeText = strlen(text);
     // calcula a coluna inicial do texto (onde ele começa)
-    column = (totalColumns/2)-(sizeText/2);
+    column = (maxColumns/2)-(sizeText/2);
     // imprime na tela
     mvwprintw(window, line, column, text);
 }
 
 int messageBox(char *message)
 {
+    int num = strlen(message);
     WINDOW *winbox;
-    // cria uma janela centralizada de 5/15
-    winbox = createCentralizeWindow(5, 30);
-    // cria uma linha al redor da janela
+    // cria uma janela centralizada
+    winbox = createCentralizeWindow(5, num + 5);
+    // cria uma linha ao redor da janela
     box(winbox, ACS_VLINE, ACS_HLINE);
-    printwcentralize(winbox, 1, 30, message);
-    printwcentralize(winbox, 3, 30, "| OK |");
+    printwcentralize(winbox, 1, message);
+
+    // cria um "botão de OK"
+    wattron(winbox, A_REVERSE);
+    printwcentralize(winbox, 3, "| OK |");
+    wattroff(winbox, A_REVERSE);
+
+    // atualiza a janela, sem isso não mostra a janela
     wrefresh(winbox);
-    //clearBuffer;
+
+    // não fecha a janela até o usuario digitar enter
     int key;
     do
     {
         key = getch();
     } while (key != ENTER);
     
+    // deleta a janela
     delwin(winbox);
-    
-    
+
 }
 
 int main()
 {
     setlocale(LC_ALL, "");
-    WINDOW *window = menu();
-    // deleta a janela
-    delwin(window);
+    // inicia o ncurses
+    initscr();
+    curs_set(0);
+    //abilita o uso dos #defines do teclado, possibilita, por exemplo a referência da tecla F1 por KEY_F1
+    keypad(stdscr, TRUE); 
+    // inicia suporte a cores
+    start_color();
+    // cria um par de cores cor do foreground branco e
+    // background azul
+    init_pair(1, COLOR_WHITE, COLOR_BLUE);
+
+    // define a cor do background
+    bkgd(COLOR_PAIR(1));
+    
+    refresh();
+
+    int opt = menu();
+
+    char message[30];
+    sprintf(message, "Número de opção escolhida: %d", opt+1);
+    messageBox(message);
     // fecha ncurses
     endwin();
     return 0;
