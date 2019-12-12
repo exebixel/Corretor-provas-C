@@ -1,9 +1,8 @@
 #include <mysql/mysql.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-/*
- * Como não se tem Try em C é usado if no lugar
- */
+// Inicia a conexão com o banco de dados mysql 
 MYSQL *startConnect(){
     // cria uma referencia do banco, meio que vc ta iniciando ele...
     // dizendo que vai fazer a conexão
@@ -22,7 +21,18 @@ MYSQL *startConnect(){
      * se der errado exibe o erro no console (printf) e para a execução
      * se der certo retorna o ponteiro da conexão
      */
-    if (!mysql_real_connect(conn, "localhost", "root", "toor", NULL, 0, NULL, 0))
+
+    char *user = "root";
+    char *host = "localhost";
+    char *password = "toor";
+    char *database = "Corretor_provas";
+    int port = 3306;
+    char *unix_socket = NULL;
+    long clientflag = 0;
+
+    if (!mysql_real_connect(conn, host, user, password, 
+                            database, port, 
+                            unix_socket, clientflag))
     {
         printf("Erro ao conectar!!! \n%u %s \n", mysql_errno(conn), mysql_error(conn));
         exit(1);
@@ -33,17 +43,18 @@ MYSQL *startConnect(){
     }
 }
 
-/* fecha a conexão com o banco de dados
- * me pergunto pq tenho uma função de uma linha mas ok...
- */
+// fecha a conexão com o banco de dados
 void closeConnect(MYSQL *conn){
     mysql_close(conn);
 }
 
-
-void Mycrud(char *sql){
-    // usa a função acima para criar a conexão com o banco
+// executa comando sql no banco de dados (mariadb)
+MYSQL_RES *Mycrud(char *sql){
+    
     MYSQL *conn = startConnect();
+    MYSQL_RES *res; // aqui é armasenado o retorno do comando sql
+    // pelo menos eu acho que é por ai...
+
     // testa se é uma conexão de "verdade", senão para a execução da função
     if (conn == NULL){
         exit(1);
@@ -60,32 +71,10 @@ void Mycrud(char *sql){
         closeConnect(conn);
         exit(1);
     }
-    
-    closeConnect(conn);
-}
-
-
-MYSQL_RES *mySelect(char *sql){
-    // cria conexão
-    MYSQL *conn = startConnect();
-    MYSQL_RES *res; // aqui é armasenado o retorno do comando sql
-    // pelo menos eu acho que é por ai...
-
-    // testa conexão
-    if (conn == NULL){
-        exit(1);
-    }
-    
-    //exacuta o comando sql
-    if (mysql_query(conn, sql)){
-        printf("Erro ao recuperar arquivos!!! \n %u %s \n", mysql_errno(conn), mysql_error(conn));
-        exit(1);
-    }
 
     // armazena o retorno ou resultado do comando na variavel res que segnifica resultado
     res = mysql_store_result(conn);
     
-    // fecha a conexão
     closeConnect(conn);
 
     /*
@@ -95,4 +84,17 @@ MYSQL_RES *mySelect(char *sql){
      * ele é "entregue" bruto 
      */
     return res;
+}
+
+int main(){
+    MYSQL_RES *res;
+    MYSQL_ROW row;
+    if (res = Mycrud("Show tables"))
+    {
+        while (row = mysql_fetch_row(res))
+        {
+            printf("%s \n", row[0]);
+        }
+        mysql_free_result(res);
+    }
 }
