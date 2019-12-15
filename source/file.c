@@ -2,13 +2,8 @@
 #include <stdlib.h>
 #include <dirent.h>
 #include <sys/stat.h>
-#include "corretor.c"
-
-int checklog();
-void addlog();
-int file();
-void createlog();
-int checkarchive();
+#include "correcao-provas.h"
+#include "file.h"
 
 int checklog()
 {

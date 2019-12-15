@@ -86,15 +86,15 @@ MYSQL_RES *Mycrud(char *sql){
     return res;
 }
 
-int main(){
-    MYSQL_RES *res;
-    MYSQL_ROW row;
-    if (res = Mycrud("Show tables"))
-    {
-        while (row = mysql_fetch_row(res))
-        {
-            printf("%s \n", row[0]);
-        }
-        mysql_free_result(res);
-    }
-}
+// int main(){
+//     MYSQL_RES *res;
+//     MYSQL_ROW row;
+//     if (res = Mycrud("Show tables"))
+//     {
+//         while (row = mysql_fetch_row(res))
+//         {
+//             printf("%s \n", row[0]);
+//         }
+//         mysql_free_result(res);
+//     }
+// }

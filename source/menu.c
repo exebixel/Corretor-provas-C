@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <ncurses.h>
 #include <string.h>
-#include "correcao-provas.c"
+#include "correcao-provas.h"
 #include "menu.h"
 #include "ctl-utils.h"
 
