@@ -1,4 +1,5 @@
-*.bin
+*.d
+*.o
 *.sql
 .vscode
 History

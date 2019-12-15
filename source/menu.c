@@ -1,18 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <locale.h>
 #include <ncurses.h>
 #include <string.h>
-#include "ctl-utils.c"
 #include "correcao-provas.c"
+#include "menu.h"
+#include "ctl-utils.h"
 
 #define clearBuffer while(getchar() != '\n');
 #define BG 1
-
-// cria o menu principal e retorna a opção escolhida pelo usuario
-int menu();
-// direciona o usuario para as opções escolhias
-void direct(int opt);
 
 int menu()
 {

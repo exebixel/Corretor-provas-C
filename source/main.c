@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ncurses.h>
-#include "menu.c"
+#include <locale.h>
+#include "menu.h"
 
 int main()
 {
