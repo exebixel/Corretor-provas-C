@@ -2,12 +2,45 @@
 #include <stdlib.h>
 #include <ncurses.h>
 #include <string.h>
+#include <locale.h>
 #include "correcao-provas.h"
 #include "menu.h"
 #include "ctl-utils.h"
 
 #define clearBuffer while(getchar() != '\n');
 #define BG 1
+
+
+
+void startmenu(char *username)
+{
+    setlocale(LC_ALL, "");
+    // inicia o ncurses
+    initscr();
+    curs_set(0);
+    //abilita o uso dos #defines do teclado, possibilita, por exemplo a referência da tecla F1 por KEY_F1
+    keypad(stdscr, TRUE); 
+    // inicia suporte a cores
+    start_color();
+    // cria um par de cores cor do foreground branco e
+    // background azul
+    init_pair(BG, COLOR_WHITE, COLOR_BLUE);
+
+    // define a cor do background
+    bkgd(COLOR_PAIR(BG));
+    
+    refresh();
+
+    int opt;
+    do
+    {
+        opt = menu();
+        direct(opt, username);
+    } while (opt != 5);
+    
+    // fecha ncurses
+    endwin();
+}
 
 int menu()
 {
@@ -92,13 +125,13 @@ int menu()
 
 }
 
-void direct(int opt)
+void direct(int opt, char *username)
 {
     switch (opt)
     {
         // cadastro de aluno
         case 0:
-            messageBox("Em Desenvolvimento!!!");
+            messageBox("Em Desenvolvimento!!!")
             break;
         
         // editar turmas
