@@ -76,3 +76,9 @@ int messageBox(char *message)
     delwin(winbox);
 
 }
+
+int boxwin(WINDOW *win)
+{
+    box(win, ACS_VLINE, ACS_HLINE);
+    return 0;
+}

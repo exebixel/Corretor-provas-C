@@ -8,7 +8,7 @@ CXXFLAGS = -lncurses -lmysqlclient
 LDFLAGS = 
 
 # Makefile settings - Can be customized.
-APPNAME = CorretorProvas
+APPNAME = CorretorProvas.bin
 EXT = .c
 SRCDIR = source
 OBJDIR = objects

@@ -3,13 +3,13 @@
 
 #include <mysql/mysql.h>
 
-// Inicia a conexão com o banco de dados mysql 
-MYSQL *startConnect();
-
-// fecha a conexão com o banco de dados
-void closeConnect(MYSQL *conn);
-
 // executa comando sql no banco de dados (mariadb)
-MYSQL_RES *Mycrud(char *sql);
+// e retorna o resultado da busca (select) MYSQL_RES
+MYSQL_RES *Myselect(char *sql);
+
+// executa um comando sql 
+// se o comando for bem sucedidio retorna 1
+// se ouver algum erro retorna 0
+int MyCrud(char *sql);
 
 #endif

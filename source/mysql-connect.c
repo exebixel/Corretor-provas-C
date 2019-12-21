@@ -48,8 +48,29 @@ void closeConnect(MYSQL *conn){
     mysql_close(conn);
 }
 
+int MyCrud(char *sql)
+{
+    MYSQL *conn = startConnect();
+    MYSQL_RES *res; // aqui é armasenado o retorno do comando sql
+    // pelo menos eu acho que é por ai...
+
+    // testa se é uma conexão de "verdade", senão para a execução da função
+    if (conn == NULL){
+        return 0;
+    } 
+    
+    if (mysql_query(conn, sql)){
+        printf("Erro ao executar comando!!! \n%u %s \n", mysql_errno(conn), mysql_error(conn));
+        closeConnect(conn);
+        return 0;
+    }
+
+    closeConnect(conn);
+    return 1;
+}
+
 // executa comando sql no banco de dados (mariadb)
-MYSQL_RES *Mycrud(char *sql){
+MYSQL_RES *Myselect(char *sql){
     
     MYSQL *conn = startConnect();
     MYSQL_RES *res; // aqui é armasenado o retorno do comando sql

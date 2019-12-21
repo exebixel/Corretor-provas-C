@@ -12,5 +12,7 @@ WINDOW *createCentralizeWindow(int lines, int columns);
 void printwcentralize(WINDOW *window, int line, char *text);
 // cria uma janela com uma mensagem que é passada pelo parametro
 int messageBox(char *menssage);
+// cria uma borda na janela
+int boxwin(WINDOW *win);
 
 #endif
