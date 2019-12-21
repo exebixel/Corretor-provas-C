@@ -131,7 +131,7 @@ void direct(int opt, char *username)
     {
         // cadastro de aluno
         case 0:
-            messageBox("Em Desenvolvimento!!!")
+            messageBox("Em Desenvolvimento!!!");
             break;
         
         // editar turmas
