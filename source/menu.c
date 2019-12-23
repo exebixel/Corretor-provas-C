@@ -11,7 +11,7 @@
 #define cleanBuffer while(getchar() != '\n');
 #define BG 1
 
-void startmenu(char *username)
+int startmenu(char *username)
 {
     setlocale(LC_ALL, "");
     // inicia o ncurses
@@ -34,7 +34,19 @@ void startmenu(char *username)
     {
         opt = menu();
         direct(opt, username);
-    } while (opt != 5);
+    } while (opt != 5 && opt != 4);
+    switch (opt)
+    {
+        // log out
+        case 4:
+            return 0;
+            break;
+        
+        // fechar programa
+        case 5:
+            return 1;
+            break;
+    }
     
     // fecha ncurses
     endwin();
@@ -155,12 +167,14 @@ void direct(int opt, char *username)
         
         // log out
         case 4:
-            messageBox("Em Desenvolvimento!!!");
+            messageBox("Volte sempre!!!");
+            endwin();
             break;
         
         // fechar programa
         case 5:
-            messageBox("Volte sempre!!!");
+            messageBox("Em Desenvolvimento!!!");
+            endwin();
             break;
     }
 }

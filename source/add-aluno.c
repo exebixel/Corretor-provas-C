@@ -17,6 +17,7 @@ int addAluno()
     printf("Digite o nome do aluno: ");
     scanf("%40[^\n]", alunoName);
 
+    printf("\n");
     if (addAlunoDB(alunoName))
     {
         printf("Cadastro de aluno feito com sucesso!!! \n");
