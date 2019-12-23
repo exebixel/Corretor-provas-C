@@ -6,11 +6,10 @@
 #include "correcao-provas.h"
 #include "menu.h"
 #include "ctl-utils.h"
+#include "add-aluno.h"
 
-#define clearBuffer while(getchar() != '\n');
+#define cleanBuffer while(getchar() != '\n');
 #define BG 1
-
-
 
 void startmenu(char *username)
 {
@@ -28,7 +27,6 @@ void startmenu(char *username)
 
     // define a cor do background
     bkgd(COLOR_PAIR(BG));
-    
     refresh();
 
     int opt;
@@ -132,6 +130,10 @@ void direct(int opt, char *username)
         // cadastro de aluno
         case 0:
             messageBox("Em Desenvolvimento!!!");
+            endwin();
+            system("clear");
+            cleanBuffer;
+            addAluno();
             break;
         
         // editar turmas

@@ -12,9 +12,10 @@ int main()
     // opção digitada pelo usuario
     char op;
 
-    system("clear");
     do {
+        system("clear");
         // menu do usuario
+        printf("MENU DE ACESSO \n");
         printf("l - Login \n");
         printf("c - Cadastro \n");
         printf("q - sair \n");
@@ -32,7 +33,7 @@ int main()
                     printf("Usuario logado: %s \n", user);
                     startmenu(user);
                 }
-                cleanBuffer;
+                
                 break;
 
             // cadastro de professor
