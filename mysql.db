@@ -74,7 +74,7 @@ CREATE TABLE `alunos_respostas` (
   `provas_id` int(11) NOT NULL,
   `alunos_id` int(11) NOT NULL,
   `resposta` char(1) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`numQuestao`,`provas_id`),
+  PRIMARY KEY (`numQuestao`,`provas_id`, `alunos_id`),
   KEY `alunos_respostas_FK` (`provas_id`),
   KEY `alunos_respostas_FK_1` (`alunos_id`),
   CONSTRAINT `alunos_respostas_FK` FOREIGN KEY (`provas_id`) REFERENCES `provas` (`id`),
