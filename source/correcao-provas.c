@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "file.h"
+#include "add-prova.h"
 
 int qtdQuestoes;
 int qntAlunos;
@@ -34,8 +35,7 @@ void entradaProvas(){
     if (printarq(numArq) == 0)
     {
         printf("Erro ao ler arquivo!!! \n");
-    }
-    
+    }    
 }
 
 void entradaGabarito()

@@ -3,7 +3,7 @@
 #include "menu.h"
 #include "acess.h"
 
-#define cleanBuffer while(getc(stdin) != '\n');
+#define cleanBuffer while(getchar() != '\n');
 
 int main()
 {
@@ -47,6 +47,7 @@ int main()
                 cleanBuffer;
                 break;
 
+            // sair 
             case 'q':
                 continuar = 1;
                 printf("Volte sempre!!! \n");
