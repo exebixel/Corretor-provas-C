@@ -3,10 +3,6 @@
 #include <stdlib.h>
 #include "mysql-connect.h"
 
-int addProva();
-int addGabarito();
-int addRespostasAlunos();
-
 int addProva(char *nameProva, char *username)
 {
     char sql[255];
@@ -29,10 +25,10 @@ int addProva(char *nameProva, char *username)
     return 0;
 }
 
-int addGabarito(int prova_id, int numQuestao, char *respostaQuestao)
+int addGabarito(int prova_id, int numQuestao, char respostaQuestao)
 {
     char sql[255];
-    sprintf(sql, "INSERT INTO gabarito VALUES('%s', '%s', '%s')",
+    sprintf(sql, "INSERT INTO gabarito VALUES('%d', '%d', '%c')",
                     numQuestao, prova_id, respostaQuestao);
     if (MyCrud(sql))
     {

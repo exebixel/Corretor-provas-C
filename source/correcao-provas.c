@@ -27,15 +27,28 @@ void entradaProvas(){
     printf("ENTRADA DAS RESPOSTAS DO ALUNOS \n");
     entradaAluno();
     system("clear");
-    // checa log e retorna numero do arquivo "prova-%i"
-    int numArq = file();
-    // corrige e cria arquivo com historico da prova
-    corrigirProva(numArq);
-    // imprime arquivo criado na tala do terminal
-    if (printarq(numArq) == 0)
+
+    int prova = addProva("teste", "exe");
+
+    for (int i = 0; i < qtdQuestoes; i++)
     {
-        printf("Erro ao ler arquivo!!! \n");
-    }    
+        if (addGabarito(prova, (i+1), gabarito[i]) == 0)
+        {
+            printf("Erro ao adicionar questão %d ao gabarito \n", i+1);
+            break;
+        }
+    }
+
+    // // checa log e retorna numero do arquivo "prova-%i"
+    // int numArq = file();
+    // // corrige e cria arquivo com historico da prova
+    // corrigirProva(numArq);
+    // // imprime arquivo criado na tala do terminal
+    // if (printarq(numArq) == 0)
+    // {
+    //     printf("Erro ao ler arquivo!!! \n");
+    // }
+
 }
 
 void entradaGabarito()
