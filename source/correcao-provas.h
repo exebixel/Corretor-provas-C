@@ -11,7 +11,12 @@ char respostasAlunos[100][100];
 
 void entradaGabarito();
 void entradaAluno();
-void entradaProvas();
-void corrigirProva();
+
+// pede prova, gabarito e respostas ao usuario
+// adiciona os dados no BD 
+// retorna 0 para sucesso 
+// retonra 1 para falha
+int entradaProvas(char *username);
+void corrigirProva(int numeroArquivo);
 
 #endif

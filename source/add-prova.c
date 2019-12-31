@@ -37,10 +37,10 @@ int addGabarito(int prova_id, int numQuestao, char respostaQuestao)
     return 0;
 }
 
-int addRespostasAlunos(int numQuestao, int prova_id, int aluno_id, char *respostaQuestao)
+int addRespostasAlunos(int prova_id, int numQuestao, int aluno_id, char     respostaQuestao)
 {
     char sql[255];
-    sprintf(sql, "INSERT INTO gabarito VALUES('%s', '%s', '%s', '%s')",
+    sprintf(sql, "INSERT INTO alunos_respostas VALUES('%d', '%d', '%d', '%c')",
                     numQuestao, prova_id, aluno_id, respostaQuestao);
     if (MyCrud(sql))
     {

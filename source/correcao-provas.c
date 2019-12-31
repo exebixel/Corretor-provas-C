@@ -9,18 +9,24 @@ int qtdQuestoes;
 int qntAlunos;
 char gabarito[100];
 char nomeAlunos[100][50];
+
 // o 1° 100 é referente as respostas do gabarito
 // o 2° 100 é referente aos alunos 
 char respostasAlunos[100][100];
 
 #define limparBuffer while(getchar()!='\n');
 
-void entradaProvas();
+int entradaProvas(char *username);
 void entradaGabarito();
 void entradaAluno();
 void corrigirProva();
+char *entradaNomeProva();
 
-void entradaProvas(){
+int entradaProvas(char *username)
+{
+    printf("ENTRADA DO NOME DA PROVA \n");
+    limparBuffer;
+    char *provaname = entradaNomeProva();
     printf("ENTRADA DO GABARITO DE PROVA \n");
     entradaGabarito();
     printf("\n \n");
@@ -28,16 +34,38 @@ void entradaProvas(){
     entradaAluno();
     system("clear");
 
-    int prova = addProva("teste", "exe");
+    // id da prova adicionada
+    int prova;
+    if (prova = addProva(provaname, username) == 0)
+    {
+        printf("Erro ao adicionar prova!!!");
+        return 1;
+    }
 
+    // adiciona as questões do gabarito no banco de dados
     for (int i = 0; i < qtdQuestoes; i++)
     {
         if (addGabarito(prova, (i+1), gabarito[i]) == 0)
         {
             printf("Erro ao adicionar questão %d ao gabarito \n", i+1);
-            break;
+            return 1;
         }
     }
+
+    // adiciona as respostas dos alunos
+    for (int i = 0; i < qntAlunos; i++)
+    {
+        for (int j = 0; j < qtdQuestoes; j++)
+        {
+            // atualizar o id do aluno 
+            if (addRespostasAlunos(prova, (j +1), 1, respostasAlunos[j][i]) == 0)
+            {
+                printf("Erro ao adicionar resposta da questão %d do aluno %d !!! \n", (j +1), 1);
+                return 1;
+            }
+        }
+    }
+    return 0;
 
     // // checa log e retorna numero do arquivo "prova-%i"
     // int numArq = file();
@@ -245,4 +273,13 @@ void corrigirProva(int numeroArquivo)
 
     fclose(arquivo);
     
+}
+
+char *entradaNomeProva()
+{
+    char provaname[50];
+    printf("Digite o name da prova: ");
+    scanf("%50[^\n]", &provaname);
+    char *provareturn = provaname;
+    return provareturn;
 }

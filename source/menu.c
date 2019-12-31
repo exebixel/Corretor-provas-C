@@ -157,7 +157,7 @@ void direct(int opt, char *username)
         case 2:
             endwin();
             system("clear");
-            entradaProvas();
+            entradaProvas(username);
             break;
         
         // historico de prova
