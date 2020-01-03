@@ -1,3 +1,4 @@
+#include "file.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <dirent.h>
@@ -5,10 +6,10 @@
 #include "corretor.c"
 
 int checklog();
-void addlog();
+void addlog(int numeroLog);
 int file();
 void createlog();
-int checkarchive();
+int checkarchive(int numArquivo);
 
 int checklog()
 {
