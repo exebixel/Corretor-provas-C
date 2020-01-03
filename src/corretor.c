@@ -1,7 +1,6 @@
 #include "corretor.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "global.c"
 
 void corrigirProva(int numeroArquivo)
 {

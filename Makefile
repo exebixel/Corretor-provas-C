@@ -4,11 +4,11 @@
 
 # Compiler settings - Can be customized.
 CC = gcc
-CXXFLAGS = -std=c11 -Wall
+CXXFLAGS = -std=c11
 LDFLAGS = 
 
 # Makefile settings - Can be customized.
-APPNAME = myapp
+APPNAME = Corretor-provas.bin
 EXT = .c
 SRCDIR = src
 OBJDIR = obj

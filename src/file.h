@@ -22,4 +22,9 @@ void createlog();
 // se não existir retorna 0
 int checkarchive(int numArquivo);
 
+// imprime o conteudo de um arquivo na tela
+// se o arquivo não existir retorna 0
+// se o arquivo for impresso com sucesso retorna 1
+int printarq(int numarq);
+
 #endif

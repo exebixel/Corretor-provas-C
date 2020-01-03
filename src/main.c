@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "global.c"
-#include "file.c"
+#include "corretor.h"
+#include "file.h"
 
 #define limparBuffer while(getchar()!='\n');
 
@@ -18,10 +18,12 @@ int main(){
     printf("ENTRADA DAS RESPOSTAS DO ALUNOS \n");
     entradaAluno();
     system("clear");
+
     // checa log e retorna numero do arquivo "prova-%i"
     int numArq = file();
     // corrige e cria arquivo com historico da prova
     corrigirProva(numArq);
+
     // imprime arquivo criado na tala do terminal
     if (printarq(numArq) == 0)
     {

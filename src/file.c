@@ -3,13 +3,14 @@
 #include <stdlib.h>
 #include <dirent.h>
 #include <sys/stat.h>
-#include "corretor.c"
+#include "corretor.h"
 
 int checklog();
 void addlog(int numeroLog);
 int file();
 void createlog();
 int checkarchive(int numArquivo);
+int printarq(int numarq);
 
 int checklog()
 {
