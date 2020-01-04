@@ -1,4 +1,4 @@
-#include "corretor.h"
+#include "include/corretor.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -23,7 +23,7 @@ void corrigirProva(int numeroArquivo)
     
 
     // Estrutura de repetição que percorre os alunos
-    for (int PercAlunos = 0; PercAlunos < qntAlunos; PercAlunos++)
+    for (int PercAlunos = 0; PercAlunos < qtdAlunos; PercAlunos++)
     {
         //Variaveis de acerto e erro
         int acertos = 0;
@@ -57,7 +57,7 @@ void corrigirProva(int numeroArquivo)
         
     }
     // calcula a media de acertos dos alunos
-    mediaTotal = acertoTotal/qntAlunos;
+    mediaTotal = acertoTotal/qtdAlunos;
     fprintf(arquivo, "\n \n");
     fprintf(arquivo, "-------------------------------------------\n");
     fprintf(arquivo, "A MÉDIA de acertos da turma é: %.2f/%d \n", mediaTotal, qtdQuestoes);
@@ -70,7 +70,7 @@ void corrigirProva(int numeroArquivo)
     for (int i = 0; i < qtdQuestoes; i++)
     {
         // calcula a probabilidade da acerto da questão
-        acertosPorQuestao[i] = (acertosPorQuestao[i]/qntAlunos)*100;
+        acertosPorQuestao[i] = (acertosPorQuestao[i]/qtdAlunos)*100;
         fprintf(arquivo, "%d° Questão: %.0f\% \n", i+1, acertosPorQuestao[i]);
     }
 

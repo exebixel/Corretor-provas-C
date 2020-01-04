@@ -2,7 +2,7 @@
 #define CORRETOR_H
 
 int qtdQuestoes;
-int qntAlunos;
+int qtdAlunos;
 char gabarito[100];
 char nomeAlunos[100][50];
 // o 1° 100 é referente as respostas do gabarito

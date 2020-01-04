@@ -2,8 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "corretor.h"
-#include "file.h"
+#include "include/corretor.h"
+#include "include/file.h"
+#include "include/utils.h"
 
 #define cleanBuffer while(getchar()!='\n');
 
@@ -97,17 +98,56 @@ void entradaGabarito()
 void entradaAluno()
 {
     
-    qntAlunos = 0;
+    qtdAlunos = 0;
     char simnao;
         
+    // deixa todas as posições do vetor nomAlunos com espaços vazios
+    // segurança, para evitar erros
+    for (int i = 0; i < 100; i++)
+    {
+        for (int j = 0; j < 50; j++)
+        {
+            nomeAlunos[i][j] = ' ';
+        }
+        
+    }
+    
     // estrutura de repetição para cadastro de aluno, e suas respostas, 
     //repete enquanto o usuario digita 1 na opção de continuar cadastro
     do
     {
-        // Pede o nome do aluno
-        printf("Digite o nome do %d° aluno(a): ", qntAlunos+1);
-        scanf("%50[^\n]", &nomeAlunos[qntAlunos]);
-           
+
+        int checkcaractere;
+        do {
+            checkcaractere = 0;
+            // Pede o nome do aluno
+            printf("Digite o nome do %d° aluno(a): ", qtdAlunos+1);
+            scanf("%50[^\n]", &nomeAlunos[qtdAlunos]);
+            
+
+            // deixa todas as letras do nome do aluno MAIUSCULAS
+            for (int i = 0; i < 50; i++)
+            {
+                if (isSpecialCaracter(nomeAlunos[qtdAlunos][i]) == 0)
+                {
+                    nomeAlunos[qtdAlunos][i] = toupper(nomeAlunos[qtdAlunos][i]);
+                }
+                else
+                {
+                    printf("Digite apenas letras!!! \n");
+                    checkcaractere++;
+                    cleanBuffer;
+                    for (int i = 0; i < 50; i++)
+                    {
+                        nomeAlunos[qtdAlunos][i] = ' ';
+                    }
+                    
+                    break;
+                }
+            }
+
+        } while (checkcaractere > 0);
+
         cleanBuffer;
 
         // Pede todas as alternativas escolhidas pelo aluno
@@ -117,28 +157,28 @@ void entradaAluno()
             do
             {
                 printf("Digite a alternativa escolhida pelo aluno da %d° questão: ",resp+1);
-                scanf("%s",&respostasAlunos[resp][qntAlunos]);
+                scanf("%s",&respostasAlunos[resp][qtdAlunos]);
 
                 // coloca a letra digitada pelo usuario em maiusculo
-                respostasAlunos[resp][qntAlunos] = toupper(respostasAlunos[resp][qntAlunos]);
+                respostasAlunos[resp][qtdAlunos] = toupper(respostasAlunos[resp][qtdAlunos]);
                 
                 cleanBuffer;
 
                 // Verifica se a resposta digitada é válida
-                if (!((respostasAlunos[resp][qntAlunos] >= 'A') && (respostasAlunos[resp][qntAlunos] <= 'E')))
+                if (!((respostasAlunos[resp][qtdAlunos] >= 'A') && (respostasAlunos[resp][qtdAlunos] <= 'E')))
                 {
                     printf("Digite apenas Alternativas válidas !!! \n");
                     printf("Alternativas válidas: A B C D E \n");
                 }
                 // Repete ate que o usuario digite a opção válida
-            } while (!((respostasAlunos[resp][qntAlunos] >= 'A') && (respostasAlunos[resp][qntAlunos] <= 'E')));
+            } while (!((respostasAlunos[resp][qtdAlunos] >= 'A') && (respostasAlunos[resp][qtdAlunos] <= 'E')));
                 
         }
 
         // Depois que terminar de digitar todas as repostas do aluno mais 1 aluno é adicionado
-        qntAlunos++;
+        qtdAlunos++;
 
-        if (qntAlunos < 100)
+        if (qtdAlunos < 100)
         {
             // Estrutura para perguntar se o usuario deseja cadastrar outro aluno
             do
@@ -168,7 +208,7 @@ void entradaAluno()
         {
             simnao = 'N';
         }
-        
+
     // Repete caso o usuario escolha cadastrar outro aluno
     } while (simnao == 'S');
     

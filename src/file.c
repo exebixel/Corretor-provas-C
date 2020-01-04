@@ -1,9 +1,9 @@
-#include "file.h"
+#include "include/file.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <dirent.h>
 #include <sys/stat.h>
-#include "corretor.h"
+#include "include/corretor.h"
 
 int checklog();
 void addlog(int numeroLog);
