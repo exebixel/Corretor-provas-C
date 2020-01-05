@@ -100,20 +100,9 @@ void entradaAluno()
     
     qtdAlunos = 0;
     char simnao;
-        
-    // deixa todas as posições do vetor nomAlunos com espaços vazios
-    // segurança, para evitar erros
-    for (int i = 0; i < 100; i++)
-    {
-        for (int j = 0; j < 50; j++)
-        {
-            nomeAlunos[i][j] = ' ';
-        }
-        
-    }
     
     // estrutura de repetição para cadastro de aluno, e suas respostas, 
-    //repete enquanto o usuario digita 1 na opção de continuar cadastro
+    //repete enquanto o usuario digita 'S' na opção de continuar cadastro
     do
     {
 
@@ -125,23 +114,15 @@ void entradaAluno()
             scanf("%50[^\n]", &nomeAlunos[qtdAlunos]);
             
 
-            // deixa todas as letras do nome do aluno MAIUSCULAS
             for (int i = 0; i < 50; i++)
             {
-                if (isSpecialCaracter(nomeAlunos[qtdAlunos][i]) == 0)
-                {
-                    nomeAlunos[qtdAlunos][i] = toupper(nomeAlunos[qtdAlunos][i]);
-                }
-                else
+                if ((ispunct(nomeAlunos[qtdAlunos][i]) != 0) ||
+                    (isdigit(nomeAlunos[qtdAlunos][i])) != 0)
                 {
                     printf("Digite apenas letras!!! \n");
                     checkcaractere++;
                     cleanBuffer;
-                    for (int i = 0; i < 50; i++)
-                    {
-                        nomeAlunos[qtdAlunos][i] = ' ';
-                    }
-                    
+                    initString(&nomeAlunos[qtdAlunos][0]);
                     break;
                 }
             }

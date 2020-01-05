@@ -22,16 +22,13 @@ int checklog()
     int num = 0;
     int maior = 0;
     // pega o numero do arquivo log
-    while (!feof(arquivolog))
+    fscanf(arquivolog, "%i ;", &num);
+    // testa se o número é o maior número do log
+    if (num > maior)
     {
-        fscanf(arquivolog, "%i ;", &num);
-        // testa se o número é o maior número do log
-        if (num > maior)
-        {
-            maior = num;
-        }
+        maior = num;
     }
-    
+
     fclose(arquivolog);
     // retorna o maior número encontrado no log
     return maior;
@@ -84,7 +81,6 @@ int checkarchive(int numArquivo)
     char nomeArquivo[40];
     // define o nome do arquivo que sera aberto
     sprintf(nomeArquivo, "%s/prova-%i", DIRNAME, numArquivo);
-
     // tenta abrir o arquivo
     if ((arquivo = fopen(nomeArquivo, "r")) != NULL)
     {

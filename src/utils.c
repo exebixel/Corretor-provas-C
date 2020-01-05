@@ -4,9 +4,8 @@
 
 int isSpecialCaracter(char caracter)
 {
-    // string com todos as caracteres qeu serão verificados
-    char *blocks = "!\"#$\%&'()*+,-./:;<=>?@[\\]^_`{|}~1234567890¨°ºª§";
-
+    // string com todos as caracteres que serão verificados
+    char *blocks = "°ºª";
     // pega o total de caracteres de string
     int max = strlen(blocks);
     // checa se o parametro caracter é igual a algum caractere de string blocks
@@ -19,3 +18,24 @@ int isSpecialCaracter(char caracter)
     }
     return 0;
 }
+
+void initString(char *string)
+{
+    // int tam = strlen(string);
+    int tam = sizeof(string)/sizeof(char);
+    printf("tamanho: %d", tam);
+    for (int  i = 0; i < tam; i++)
+    {
+        string[i] = 0;
+    }    
+}
+
+// int main()
+// {
+//     int tam = 5;
+//     int *prt;
+//     prt = &tam;
+
+//     printf("tam: %d", *prt);
+    
+// }

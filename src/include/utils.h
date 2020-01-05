@@ -7,4 +7,7 @@
 // retorna 0 se não
 int isSpecialCaracter(char caracter);
 
+// limpa o conteudo de uma string
+void initString(char *string);
+
 #endif
