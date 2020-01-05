@@ -108,26 +108,13 @@ void entradaAluno()
 
         int checkcaractere;
         do {
-            checkcaractere = 0;
             // Pede o nome do aluno
             printf("Digite o nome do %d° aluno(a): ", qtdAlunos+1);
             scanf("%50[^\n]", &nomeAlunos[qtdAlunos]);
-            
 
-            for (int i = 0; i < 50; i++)
-            {
-                if ((ispunct(nomeAlunos[qtdAlunos][i]) != 0) ||
-                    (isdigit(nomeAlunos[qtdAlunos][i])) != 0)
-                {
-                    printf("Digite apenas letras!!! \n");
-                    checkcaractere++;
-                    cleanBuffer;
-                    initString(&nomeAlunos[qtdAlunos][0]);
-                    break;
-                }
-            }
+            checkcaractere = checkName(nomeAlunos[qtdAlunos]);
 
-        } while (checkcaractere > 0);
+        } while (checkcaractere != 0);
 
         cleanBuffer;
 

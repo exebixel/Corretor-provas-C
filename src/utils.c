@@ -1,6 +1,9 @@
 #include "include/utils.h"
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
+
+#define cleanBuffer while(getchar() != '\n')
 
 int isSpecialCaracter(char caracter)
 {
@@ -21,21 +24,29 @@ int isSpecialCaracter(char caracter)
 
 void initString(char *string)
 {
-    // int tam = strlen(string);
     int tam = sizeof(string)/sizeof(char);
-    printf("tamanho: %d", tam);
     for (int  i = 0; i < tam; i++)
     {
         string[i] = 0;
     }    
 }
 
-// int main()
-// {
-//     int tam = 5;
-//     int *prt;
-//     prt = &tam;
+int checkName(char *name)
+{
+    int checkcaractere = 0;
+    int tam = strlen(name);
 
-//     printf("tam: %d", *prt);
-    
-// }
+    for (int i = 0; i < tam; i++)
+    {
+        if ((ispunct(name[i]) != 0) ||
+            (isdigit(name[i])) != 0)
+        {
+            printf("Digite apenas letras!!! \n");
+            checkcaractere++;
+            cleanBuffer;
+            initString(&name[0]);
+            return 1;
+        }
+    }
+    return 0;
+}
