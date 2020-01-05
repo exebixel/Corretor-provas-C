@@ -106,41 +106,25 @@ void entradaAluno()
     do
     {
 
-        int checkcaractere;
+        int check;
         do {
             // Pede o nome do aluno
             printf("Digite o nome do %d° aluno(a): ", qtdAlunos+1);
             scanf("%50[^\n]", &nomeAlunos[qtdAlunos]);
 
-            checkcaractere = checkName(nomeAlunos[qtdAlunos]);
+            check = checkName(nomeAlunos[qtdAlunos]);
 
-        } while (checkcaractere != 0);
+        } while (check != 0);
 
         cleanBuffer;
 
         // Pede todas as alternativas escolhidas pelo aluno
         for(int resp=0; resp<qtdQuestoes; resp++)
         {
-            // Estrutura de validação de alternativas do aluno
-            do
-            {
-                printf("Digite a alternativa escolhida pelo aluno da %d° questão: ",resp+1);
-                scanf("%s",&respostasAlunos[resp][qtdAlunos]);
-
-                // coloca a letra digitada pelo usuario em maiusculo
-                respostasAlunos[resp][qtdAlunos] = toupper(respostasAlunos[resp][qtdAlunos]);
-                
-                cleanBuffer;
-
-                // Verifica se a resposta digitada é válida
-                if (!((respostasAlunos[resp][qtdAlunos] >= 'A') && (respostasAlunos[resp][qtdAlunos] <= 'E')))
-                {
-                    printf("Digite apenas Alternativas válidas !!! \n");
-                    printf("Alternativas válidas: A B C D E \n");
-                }
-                // Repete ate que o usuario digite a opção válida
-            } while (!((respostasAlunos[resp][qtdAlunos] >= 'A') && (respostasAlunos[resp][qtdAlunos] <= 'E')));
-                
+            char text[100];
+            sprintf(text, "Digite a alternativa escolhida pelo aluno da %d° questão: ",resp+1);
+            // entrada da resposta do aluno
+            inputAlternative(text, &respostasAlunos[resp][qtdAlunos]);
         }
 
         // Depois que terminar de digitar todas as repostas do aluno mais 1 aluno é adicionado
