@@ -1,6 +1,10 @@
 #ifndef FILE_H
 #define FILE_H
 
+// nome do diretorio que será criado na HOME 
+// e que conterá o historico de provas
+#define DIRNAME "Historico"
+
 // checa a existencia do log 
 // se não existir ele é criado 
 // retorna o maior número encontrado no log

@@ -5,23 +5,18 @@
 #include <sys/stat.h>
 #include "include/corretor.h"
 
-int checklog();
-void addlog(int numeroLog);
-int file();
-void createlog();
-int checkarchive(int numArquivo);
-int printarq(int numarq);
-
 int checklog()
 {
     FILE *arquivolog;
     // testa se o log existe
-    if ((arquivolog = fopen("History/.log", "r")) == NULL)
+    char nameArchive[100];
+    sprintf(nameArchive, "%s/.log", DIRNAME);
+    if ((arquivolog = fopen(nameArchive, "r")) == NULL)
     {
         // se não existir cria o log
         createlog();
         // abre arquivo log
-        arquivolog = fopen("History/.log", "r");
+        arquivolog = fopen(nameArchive, "r");
     } 
 
     int num = 0;
@@ -35,7 +30,6 @@ int checklog()
         {
             maior = num;
         }
-        
     }
     
     fclose(arquivolog);
@@ -47,7 +41,9 @@ void addlog(int numeroLog)
 {
     FILE *arquivolog;
     // abre o arquivo log
-    arquivolog = fopen("History/.log", "w");
+    char nameArchive[50];
+    sprintf(nameArchive, "%s/.log", DIRNAME);
+    arquivolog = fopen(nameArchive, "w");
     // salva no arquivo o numero passado pelo parametro
     fprintf(arquivolog, "%i ;\n", numeroLog);
     // fecha arquivo
@@ -57,8 +53,8 @@ void addlog(int numeroLog)
 void createlog()
 {
     DIR *pasta;
-    // abreo o diretorio
-    pasta = opendir("History");
+    // abre o o diretorio
+    pasta = opendir(DIRNAME);
     struct dirent *ls;
     int num = 0;
     int maior = 0;
@@ -87,7 +83,7 @@ int checkarchive(int numArquivo)
     FILE *arquivo;
     char nomeArquivo[40];
     // define o nome do arquivo que sera aberto
-    sprintf(nomeArquivo, "History/prova-%i", numArquivo);
+    sprintf(nomeArquivo, "%s/prova-%i", DIRNAME, numArquivo);
 
     // tenta abrir o arquivo
     if ((arquivo = fopen(nomeArquivo, "r")) != NULL)
@@ -105,9 +101,9 @@ int printarq(int numarq)
     FILE *arquivo;
     char nomeArquivo[40];
     // define o nome do arquivo que será lido
-    sprintf(nomeArquivo, "History/prova-%i", numarq);
+    sprintf(nomeArquivo, "%s/prova-%i", DIRNAME, numarq);
 
-    // abre o arquivo
+    // abre o arquivoDI
     if (arquivo = fopen(nomeArquivo, "r")){
 
         char c;
@@ -133,8 +129,8 @@ int printarq(int numarq)
 
 int file()
 {
-    // checa se a pasta "History" existe se não existir cria
-    mkdir("History", 0755);
+    // checa se a pasta DIRNAME existe se não existir cria
+    mkdir(DIRNAME, 0755);
     
     // checa arquivo de log para saber qual o numero do arquivo de prova
     int numeroArquivo = checklog();

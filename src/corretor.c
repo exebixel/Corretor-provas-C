@@ -1,12 +1,13 @@
 #include "include/corretor.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "include/file.h"
 
 void corrigirProva(int numeroArquivo)
 {
     FILE *arquivo;
     char nomeArquivo[40];
-    sprintf(nomeArquivo, "History/prova-%i", numeroArquivo);
+    sprintf(nomeArquivo, "%s/prova-%i", DIRNAME, numeroArquivo);
     arquivo = fopen(nomeArquivo, "w");
 
 
