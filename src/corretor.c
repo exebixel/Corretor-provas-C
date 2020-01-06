@@ -66,7 +66,7 @@ void corrigirProva(int numeroArquivo)
     
     fprintf(arquivo, "\n");
     fprintf(arquivo, "-------------------------------------------\n");    
-    fprintf(arquivo, "Probabilidade de Acerto de cada questão: \n");
+    fprintf(arquivo, "Taxa de Acerto de cada questão: \n");
     // laço para calcular a probabilidade da acerto de cada questão
     for (int i = 0; i < qtdQuestoes; i++)
     {
