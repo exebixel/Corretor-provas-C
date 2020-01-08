@@ -42,7 +42,7 @@ int main()
 void entradaGabarito()
 {
     
-        // Estrutura de validação
+    // Estrutura de validação
     do
     {
         // Pede o numero de questões da prova
@@ -57,36 +57,21 @@ void entradaGabarito()
             printf("Digite um numero de questões entre 1 e 100 !!!\n");
             printf("\n");
         }
+        
         // Enquanto não for digitado um valor válido, ele pede de novo o numero de questões
     } while (qtdQuestoes>100 || qtdQuestoes<=0);
     
     
     fflush(stdin);
-        // Repete o laço para, o usuario digitar todas as questões
+
+    // Repete o laço para, o usuario digitar todas as questões
     for(int i=0; i<qtdQuestoes; i++)
     {
-        do
-        {
-                // Pergunta a alternativa correta de cada questão
-            printf("Digite a alternativa correta da %d° questão: ",i+1);
-            scanf("%c",&gabarito[i]);
-
-            // coloca a letra digitada pelo usuario em maiusculo
-            gabarito[i] = toupper(gabarito[i]);
-
-            cleanBuffer;
-
-                // Verifica se a alternativa digitada pelo usuario é valida
-            if (!((gabarito[i] >= 'A' && gabarito[i] <= 'E')))
-            {
-                // Mensagem caso o usuario digite uma alternativa inválida
-                printf("Digite apenas Alternativas válidas!!! \n");
-                printf("Alternativas válidas: A B C D E \n");
-            }
-                
-                // Repete enquanto nao for digitar uma alternativa válida
-        } while (!((gabarito[i] >= 'A' && gabarito[i] <= 'E')));
-             
+        // texto que será exibido para pedir o gabarito da prova
+        char text[100];
+        sprintf(text, "Digite a alternativa correta da %d° questão: ", i+1);
+        // entrada do gabarito
+        inputAlternative(text, &gabarito[i]);
     }
       
 }
