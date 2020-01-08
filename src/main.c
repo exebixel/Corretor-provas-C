@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <ctype.h>
 #include "include/corretor.h"
 #include "include/file.h"
@@ -57,7 +56,7 @@ void entradaGabarito()
             printf("Digite um numero de questões entre 1 e 100 !!!\n");
             printf("\n");
         }
-        
+
         // Enquanto não for digitado um valor válido, ele pede de novo o numero de questões
     } while (qtdQuestoes>100 || qtdQuestoes<=0);
     
