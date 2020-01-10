@@ -10,8 +10,8 @@ LDFLAGS =
 # Makefile settings - Can be customized.
 APPNAME = CorretorProvas.bin
 EXT = .c
-SRCDIR = source
-OBJDIR = objects
+SRCDIR = src
+OBJDIR = obj
 
 ############## Do not change anything from here downwards! #############
 SRC = $(wildcard $(SRCDIR)/*$(EXT))
