@@ -1,6 +1,7 @@
 #include "include/utils.h"
 #include <stdio.h>
 #include <ctype.h>
+#include <string.h>
 
 #define cleanBuffer while(getchar() != '\n')
 
