@@ -13,7 +13,7 @@
 
 int startmenu(char *username)
 {
-    // setlocale(LC_ALL, "");
+    setlocale(LC_ALL, "pt_BR.UTF-8");
     // inicia o ncurses
     initscr();
     curs_set(0);
