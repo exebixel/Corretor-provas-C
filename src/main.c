@@ -81,25 +81,33 @@ void entradaGabarito()
  */
 void entradaAluno()
 {
-    
+    // inicializa a quantidade de alunos para 0
+    // pq no começo não temos alunos
     qtdAlunos = 0;
+
+    // variavel que contem a resposta do usuario 
+    // para continuar inserindo alunos
     char simnao;
     
     // estrutura de repetição para cadastro de aluno, e suas respostas, 
     //repete enquanto o usuario digita 'S' na opção de continuar cadastro
     do
     {
-
+        // guarda o retorno da verificação de caracteres
         int check;
+
         do {
             // Pede o nome do aluno
             printf("Digite o nome do %d° aluno(a): ", qtdAlunos+1);
             scanf("%50[^\n]", &nomeAlunos[qtdAlunos]);
 
+            // checa se o nome do aluno é valido
             check = checkName(nomeAlunos[qtdAlunos]);
-
+        
+        // repete enquanto não for digitada um nome valido
         } while (check != 0);
 
+        // limpa o buffer (evita problemas)  
         cleanBuffer;
 
         // Pede todas as alternativas escolhidas pelo aluno
@@ -114,11 +122,14 @@ void entradaAluno()
         // Depois que terminar de digitar todas as repostas do aluno mais 1 aluno é adicionado
         qtdAlunos++;
 
+        // verifica se é possivel cadastrar outro aluno
+        // o limite de alunos é 100
         if (qtdAlunos < 100)
         {
             // Estrutura para perguntar se o usuario deseja cadastrar outro aluno
             do
             {
+                // pergunta se quer cadastrar outro aluno
                 printf("\n");
                 printf("Voce deseja cadastrar outro aluno ? \n");
                 printf("Digite 'N' para não e 'S' para sim \n");
@@ -142,6 +153,8 @@ void entradaAluno()
         } 
         else
         {
+            // se não puder cadastrar outro aluno
+            // seta a variavel de forma a não continuar o loop de cadastro
             simnao = 'N';
         }
 

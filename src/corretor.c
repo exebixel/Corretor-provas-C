@@ -6,14 +6,19 @@
 void corrigirProva(int numeroArquivo)
 {
     FILE *arquivo;
+    // cria o arquivo passado com o número passado pelo parametro
     char nomeArquivo[40];
     sprintf(nomeArquivo, "%s/prova-%i", DIRNAME, numeroArquivo);
     arquivo = fopen(nomeArquivo, "w");
 
 
     // Variaveis 
+
+    // 
     float acertoTotal = 0;
     float mediaTotal = 0;
+    // guarda a quantidade de acertos de cada questão
+    // a posição do total de acertos é igual a posição das questões
     float acertosPorQuestao[qtdQuestoes];
 
     // inicialização do vetor
@@ -29,6 +34,7 @@ void corrigirProva(int numeroArquivo)
         //Variaveis de acerto e erro
         int acertos = 0;
         int erros = 0;
+
         fprintf(arquivo, "\n");
         fprintf(arquivo, "Nome %d° aluno(a): %s \n", PercAlunos+1, nomeAlunos[PercAlunos]);
         // Estrutura que percorre as alternativas
@@ -67,10 +73,10 @@ void corrigirProva(int numeroArquivo)
     fprintf(arquivo, "\n");
     fprintf(arquivo, "-------------------------------------------\n");    
     fprintf(arquivo, "Taxa de Acerto de cada questão: \n");
-    // laço para calcular a probabilidade da acerto de cada questão
+    // laço para calcular a taxa de acerto de cada questão
     for (int i = 0; i < qtdQuestoes; i++)
     {
-        // calcula a probabilidade da acerto da questão
+        // calcula a taxa de acerto da questão
         acertosPorQuestao[i] = (acertosPorQuestao[i]/qtdAlunos)*100;
         fprintf(arquivo, "%d° Questão: %.0f\% \n", i+1, acertosPorQuestao[i]);
     }

@@ -120,7 +120,6 @@ int printarq(int numarq)
         // se o arquivo não existir
         return 0;
     }
-    
 }
 
 int file()
